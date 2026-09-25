@@ -59,6 +59,7 @@ p { margin: 0; }
 .nav { display: flex; gap: 28px; align-items: center; }
 .nav a { text-decoration: none; font-size: .9rem; color: var(--steel); transition: color .2s; }
 .nav a:hover { color: var(--paper); }
+.nav a.btn, .nav a.btn:hover { color: #15110a; }
 @media (max-width: 900px) { .nav a:not(.btn) { display: none; } }
 
 /* ---------- Buttons ---------- */
