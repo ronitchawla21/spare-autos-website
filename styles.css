@@ -461,3 +461,6 @@ kbd { font: 500 .66rem/1 var(--mono); letter-spacing: .06em; padding: 3px 5px; b
 @media (max-width: 480px) { .tabs button { font-size: .76rem; padding: 11px 4px; } }
 @media (max-width: 720px) { .toast { top: calc(84px + env(safe-area-inset-top, 0px)); bottom: auto; transform: translate(-50%, -20px); } .toast.show { transform: translate(-50%, 0); } }
 .pcard .stock { color: var(--steel); }
+.nav a, .icon-btn kbd { white-space: nowrap; }
+@media (max-width: 1180px) { .nav { gap: 18px; } .nav .icon-btn kbd { display: none; } }
+@media (max-width: 1040px) { .nav a[href="#faq"], .nav a[href="#locations"] { display: none; } }
