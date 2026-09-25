@@ -18,6 +18,7 @@
 </head>
 <body>
 
+<div class="progress-bar" aria-hidden="true"><span id="progress"></span></div>
 <header class="site-header" id="top">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Spare Autos home">
@@ -26,10 +27,12 @@
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#brands">Brands</a>
-      <a href="#parts">Parts</a>
+      <a href="#catalogue">Catalogue</a>
       <a href="#why">Why us</a>
+      <a href="#faq">FAQ</a>
       <a href="#locations">Locations</a>
-      <a class="btn small" href="#enquiry">Get a quote <span class="arrow" aria-hidden="true">→</span></a>
+      <button class="icon-btn" type="button" id="open-search" aria-label="Search parts (Ctrl K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><kbd>Ctrl K</kbd></button>
+      <button class="btn small quote-btn" type="button" id="open-quote">Quote list <span class="q-count" id="q-count">0</span></button>
     </nav>
   </div>
 </header>
@@ -39,6 +42,8 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-media" data-parallax="0.18"><img src="assets/stock/hero-amg.webp" alt="Front grille of a Mercedes-AMG at night" fetchpriority="high"></div>
     <div class="wrap hero-inner">
+     <div class="hero-grid">
+     <div class="hero-copy">
       <span class="eyebrow">Importer &amp; distributor · Mumbai · Delhi</span>
       <h1 id="hero-title">
         <span class="line"><span>Genuine</span></span>
@@ -47,9 +52,42 @@
       </h1>
       <p class="lede">We import brake, filtration, suspension and engine parts straight from Germany and Europe, and stock them in Mumbai and Delhi for workshops and dealers across India. Send us a part number and we'll send you a quote.</p>
       <div class="hero-ctas">
-        <a class="btn" href="#enquiry">Send part numbers <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn" href="#catalogue">Browse fast movers <span class="arrow" aria-hidden="true">→</span></a>
         <a class="btn ghost" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp us</a>
       </div>
+     </div>
+
+     <!-- PART FINDER -->
+     <div class="finder" id="finder" aria-labelledby="finder-title">
+      <div class="finder-head"><span class="finder-title" id="finder-title">Find your part</span><span class="finder-live"><i></i>Quotes on WhatsApp</span></div>
+      <div class="tabs" role="tablist" aria-label="Search method">
+        <button role="tab" id="tab-vehicle" aria-controls="pane-vehicle" aria-selected="true" type="button">By vehicle</button>
+        <button role="tab" id="tab-number" aria-controls="pane-number" aria-selected="false" type="button" tabindex="-1">Part number</button>
+        <button role="tab" id="tab-bulk" aria-controls="pane-bulk" aria-selected="false" type="button" tabindex="-1">Bulk list</button>
+      </div>
+      <div class="pane" role="tabpanel" id="pane-vehicle" aria-labelledby="tab-vehicle">
+        <div class="f-grid">
+          <label class="sel"><span>Make</span><select id="v-make"><option value="">Select make</option></select></label>
+          <label class="sel"><span>Model</span><select id="v-model" disabled><option value="">Select model</option></select></label>
+          <label class="sel"><span>Year</span><select id="v-year" disabled><option value="">Year</option></select></label>
+          <label class="sel"><span>Part group</span><select id="v-group"><option value="">Any part</option><option>Brake pads</option><option>Brake discs</option><option>Oil filter</option><option>Air filter</option><option>Cabin filter</option><option>Fuel filter</option><option>Engine mount</option><option>Control arm / links</option><option>Air suspension</option><option>Oil seals &amp; gaskets</option><option>Sensors</option></select></label>
+        </div>
+        <button class="btn block" type="button" id="v-add">Add to quote list <span class="arrow" aria-hidden="true">→</span></button>
+        <p class="finder-note">Add your VIN at checkout and we'll confirm exact fitment.</p>
+      </div>
+      <div class="pane" role="tabpanel" id="pane-number" aria-labelledby="tab-number" hidden>
+        <label class="sel"><span>OE or brand part number</span><input id="pn-input" placeholder="e.g. HU 7008 z or 13.0460-2785.2" autocomplete="off" spellcheck="false"></label>
+        <ul class="pn-suggest" id="pn-suggest" role="listbox" aria-label="Matching parts"></ul>
+        <button class="btn block" type="button" id="pn-add">Add to quote list <span class="arrow" aria-hidden="true">→</span></button>
+        <p class="finder-note">Not in our list? Add it anyway and we'll cross-reference it.</p>
+      </div>
+      <div class="pane" role="tabpanel" id="pane-bulk" aria-labelledby="tab-bulk" hidden>
+        <label class="sel"><span>Paste a list: one part per line, quantity optional</span><textarea id="bulk-input" rows="5" spellcheck="false" placeholder="HU 7008 z x 10&#10;13.0460-2785.2, 4&#10;92082205 2"></textarea></label>
+        <button class="btn block" type="button" id="bulk-add">Add all to quote list <span class="arrow" aria-hidden="true">→</span></button>
+        <p class="finder-note">Workshops and dealers: paste straight from your order sheet or Excel.</p>
+      </div>
+     </div>
+     </div>
       <div class="hero-stats" role="list">
         <div class="stat" role="listitem"><b data-count="8">8</b><span>European brands</span></div>
         <div class="stat" role="listitem"><b data-count="2">2</b><span>Stocking hubs</span></div>
@@ -82,6 +120,17 @@
         <li><span class="b">Textar</span><span class="pn">92330805</span><span class="d">Brake disc</span></li>
         <li><span class="b">MANN</span><span class="pn">C 26 014</span><span class="d">Air filter</span></li>
       </ul>
+    </div>
+  </div>
+
+  <!-- TRUST STRIP -->
+  <div class="trust">
+    <div class="wrap trust-row">
+      <div><b>Genuine only</b><span>Original brand packaging</span></div>
+      <div><b>Fitment checked</b><span>Matched by OE number &amp; VIN</span></div>
+      <div><b>GST invoice</b><span>On every order</span></div>
+      <div><b>Pan-India dispatch</b><span>From Mumbai &amp; Delhi</span></div>
+      <div><b>WhatsApp quotes</b><span>Send a photo or a list</span></div>
     </div>
   </div>
 
@@ -133,6 +182,26 @@
       <ul class="makes" aria-label="Makes we cover">
         <li>Mercedes-Benz</li><li>BMW</li><li>Audi</li><li>Volkswagen</li><li>Porsche</li><li>Volvo</li><li>Land Rover</li><li>Jaguar</li><li>Mini</li>
       </ul>
+    </div>
+  </section>
+
+  <!-- CATALOGUE -->
+  <section class="catalogue" id="catalogue" aria-labelledby="cat-title">
+    <div class="wrap">
+      <div class="section-head split">
+        <div>
+          <span class="eyebrow">Fast movers</span>
+          <h2 id="cat-title" class="reveal">Parts workshops<br><span class="gold">order most.</span></h2>
+        </div>
+        <p class="lede reveal">A sample of the lines we keep moving. Filter by group or brand, add what you need to your quote list, and we'll confirm price and stock.</p>
+      </div>
+      <div class="cat-tools">
+        <div class="chips" role="group" aria-label="Filter by part group" id="chips-group"></div>
+        <div class="chips" role="group" aria-label="Filter by brand" id="chips-brand"></div>
+        <label class="cat-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="cat-q" type="search" placeholder="Filter by part number" aria-label="Filter by part number"></label>
+      </div>
+      <div class="cat-grid" id="cat-grid" aria-live="polite"></div>
+      <p class="cat-empty" id="cat-empty" hidden>No matches in this sample. <button type="button" class="linklike" id="cat-add-q">Add this number to your quote list</button> and we'll source it.</p>
     </div>
   </section>
 
@@ -236,6 +305,7 @@
         <div class="field"><label for="f-make">Vehicle make</label>
           <select id="f-make" name="make"><option value="">Select</option><option>Mercedes-Benz</option><option>BMW</option><option>Audi</option><option>Volkswagen</option><option>Porsche</option><option>Volvo</option><option>Land Rover</option><option>Jaguar</option><option>Mini</option><option>Other</option></select></div>
         <div class="field"><label for="f-model">Model &amp; year</label><input id="f-model" name="model" placeholder="e.g. C-Class W205, 2018"></div>
+        <div class="field full"><label for="f-vin">VIN / chassis number <span class="opt">(optional, helps us confirm fitment)</span></label><input id="f-vin" name="vin" autocomplete="off" spellcheck="false" maxlength="17" placeholder="17 characters, e.g. WDD2050042F123456"></div>
         <div class="field full"><label for="f-parts">Part numbers &amp; quantities <span class="req">*</span></label><textarea id="f-parts" name="parts" placeholder="One per line, e.g.&#10;13.0460-2785.2 × 2&#10;HU 7008 z × 10" required></textarea></div>
         <div class="field full"><label for="f-msg">Anything else?</label><textarea id="f-msg" name="message" style="min-height:80px"></textarea></div>
         <div class="form-actions">
@@ -244,6 +314,26 @@
         </div>
         <p class="form-note" id="form-note" role="status"></p>
       </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq" aria-labelledby="faq-title" style="padding-top:0">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="eyebrow">Questions</span>
+        <h2 id="faq-title" class="reveal">Before you<br><span class="gold">order.</span></h2>
+        <p class="lede">Can't find your answer? Message us on WhatsApp.</p>
+      </div>
+      <div class="faq-list">
+        <details><summary>Are your parts genuine?</summary><p>Yes. We buy from the manufacturer or its official channel in India, and every part ships in the brand's original packaging. We don't sell copies or unbranded parts.</p></details>
+        <details><summary>How do you make sure a part fits my car?</summary><p>We match every enquiry by OE or brand part number. If you don't have one, send the make, model, year and VIN (chassis number), and we check fitment against catalogue data before quoting.</p></details>
+        <details><summary>Do you sell to individual car owners?</summary><p>We mainly supply workshops, retailers and dealers. Car owners are welcome to send an enquiry; we may point you to a partner workshop for fitting.</p></details>
+        <details><summary>How fast can you dispatch?</summary><p>Parts in stock at Mumbai or Delhi usually go out once your order is confirmed. Items we import to order take longer, and we tell you the expected date when we quote.</p></details>
+        <details><summary>Do you ship outside Mumbai and Delhi?</summary><p>Yes. We ship across India by surface express and share tracking once your order is dispatched.</p></details>
+        <details><summary>Do I get a GST invoice?</summary><p>Yes, every order comes with a GST tax invoice, so registered businesses can claim input credit.</p></details>
+        <details><summary>Can you source a part that isn't listed?</summary><p>Usually, yes. Our catalogue here is only a sample. Send the part number and we'll check our brands and suppliers in Europe.</p></details>
+      </div>
     </div>
   </section>
 
@@ -271,6 +361,37 @@
     <div class="legal"><span>© <span id="yr">2026</span> Spare Autos. Brand names belong to their respective owners.</span><span>Photos: Unsplash (see assets/stock/CREDITS.json)</span></div>
   </div>
 </footer>
+
+<!-- QUOTE DRAWER -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-labelledby="drawer-title" aria-hidden="true" tabindex="-1">
+  <header class="drawer-head"><h3 id="drawer-title">Quote list</h3><button class="icon-btn" type="button" id="close-quote" aria-label="Close quote list">✕</button></header>
+  <ul class="q-lines" id="q-lines"></ul>
+  <div class="q-empty" id="q-empty"><p>Your list is empty.</p><p>Add parts from the finder or the catalogue, or paste a bulk list.</p></div>
+  <footer class="drawer-foot">
+    <button class="btn block" type="button" id="q-whatsapp">Send list on WhatsApp</button>
+    <button class="btn ghost block" type="button" id="q-form">Continue to enquiry form</button>
+    <button class="linklike" type="button" id="q-clear">Clear list</button>
+  </footer>
+</aside>
+
+<!-- SEARCH PALETTE -->
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Search parts and pages" hidden>
+  <div class="palette-box">
+    <label class="palette-input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="pal-q" placeholder="Search part numbers, brands, sections" autocomplete="off" spellcheck="false" aria-label="Search"><kbd>Esc</kbd></label>
+    <ul id="pal-results" role="listbox"></ul>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- MOBILE ACTION BAR -->
+<nav class="mbar" aria-label="Quick actions">
+  <a href="tel:+91XXXXXXXXXX"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg>Call</a>
+  <a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H8l-4 4z"/></svg>WhatsApp</a>
+  <button type="button" id="m-quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7"/></svg>Quote <span class="q-count" id="q-count-m">0</span></button>
+</nav>
 
 <a class="wa" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 000-.4c0-.1-.6-1.4-.8-1.9s-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.7 11.8 11.8 0 004.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 001.8-1.2 2.2 2.2 0 00.1-1.2c0-.2-.2-.2-.5-.3z"/></svg>
