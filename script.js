@@ -59,7 +59,7 @@
 
   // Enquiry → email or WhatsApp (no backend)
   const EMAIL = 'spareautos2025@gmail.com';
-  const WHATSAPP = '91XXXXXXXXXX'; // TODO: owner to fill in, digits only with country code
+  const WHATSAPP = '919810136444';
   const form = $('enquiry-form'); const note = $('form-note');
   const compose = () => {
     const f = new FormData(form);
